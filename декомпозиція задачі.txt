@@ -1,0 +1,25 @@
+Description: 
+1 This program is called to be used with army camp studying, army snipers(up to 1000 meters).
+
+2 The shooter have no time to think about cleaning of board correction(see - shoot - moove). So that's why I decide to include action of memotizing of all 
+corrections (up to 10 with all sniper's included data). In the moment of board cleaning app will anouce memorization and its cleaning with short vibration.
+Allso this DATA may be sent to main oficer or head stuff on the battle field so they can control sniper's actions.
+Mainly this app will be usefull for snipers in close range at around 800 - 1000 meters. 
+
+
+1 ballistic calculator: functionality
+	> weather corrections
+	   - wind
+	   - temperature
+	   - day/night
+	   - atmosphere preasure 
+	   - air humidity (weet)
+	
+	> physical options
+	   - target movement
+	   - bullet derevation
+	   - side angle of gun position.
+
+2 main problems of close combat snipers
+	> fast aiming
+	> app communication

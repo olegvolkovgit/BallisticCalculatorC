@@ -1,0 +1,38 @@
+int overflowing(struct S_DATA *S_ptr)
+{
+  int d_Aim, excess;
+  int arr[8][15];
+  printf("enter fixed aiming distance of your sight: ");
+  scanf("%d",&d_Aim);
+  printf("distance to target: %d", S_DATA->distance);
+  arr[0][0] = 1; arr[0][1] = 1; arr[0][2] = 6; arr[0][3] = 11; arr[0][4] = 18;
+  arr[1][0] = 0; arr[1][1] = 5; arr[1][2] = 14;arr[1][3] = 25; arr[1][4] = 38;
+  arr[1][5] = 53;arr[1][6] = 67;arr[1][7] = 79;arr[1][8] = 127;
+  arr[2][0] = -3;arr[2][1] = 4; arr[2][2] = 18;arr[2][3] = 35; arr[2][4] = 53;
+  arr[3][1] = 0; arr[3][2] = 17;arr[3][3] = 39;arr[3][4] = 64; arr[3][5] = 95; 
+  arr[3][6] =135;arr[3][7] =169;arr[3][8] =271;
+  arr[4][1] =-11;arr[4][2] = 11;arr[4][3] = 39;arr[4][4] = 70;
+  arr[5][2] = 0; arr[5][3] = 33;arr[5][4] = 70;arr[5][5] =120; arr[5][6] = 157;
+  arr[5][7] =215;arr[5][8] =364;
+  arr[6][2] =-18;arr[6][3] = 20;arr[6][4] = 64;
+  arr[7][3] = 0; arr[7][4] = 50;arr[7][5] =110;arr[7][6] =159; arr[7][7] =254;
+  arr[7][8] = 450;
+  arr[8][3] =-28;arr[8][4] = 28;
+  arr[9][4] = 0; arr[9][5] = 74; arr[9][6]=165;arr[9][7] = 265; 
+  arr[9][8] = 500;
+  arr[10][4] =-43;
+  arr[11][5] = 0;arr[11][6]=115;arr[11][7]=230;arr[11][8] =540;
+  arr[12][7] = 0;arr[12][8] =400;
+  arr[13][8] = 260;
+  arr[14][8] = 0;                   
+
+  //int *arr_ptr = (int**)malloc(m*sizeof(int*) + m*n*sizeof(int));
+  if(arr[d_Aim][ S_DATA->distance] == NULL)
+  printf("anounced data has no practical meaning or does'nt exist");
+  if(arr[d_Aim][ S_DATA->distance] < 0)
+  printf("decreasing of trajectory! up to %d santemeters",arr[d_Aim][ S_DATA->distance]);
+  else(printf(exess sight is %d santameters on the field,arr[d_Aim][ S_DATA->distance]))
+  excess = arr[d_Aim][ S_DATA->distance];
+
+  return excess;
+}

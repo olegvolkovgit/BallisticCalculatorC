@@ -1,0 +1,11 @@
+ENTERED CORRECTIONS:
+
+temperature: 15
+side wind: 4
+wind angle: 45
+
+distance to target: 450
+heith of target: 2
+thousands: 1
+speed of target: 3
+angle of target movement: 45

@@ -1,0 +1,181 @@
+#include "stdafx.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+#include <conio.h>
+
+#define NAME 50
+#define twoo 2
+#define four 4
+#define hundred 100
+#define thousand 1000
+#define half 0.5
+
+struct S_DATA 
+{
+	int distance; //distance (in meters)
+	float heith; // object heith
+	int thousands; // thousands
+	int targ_speed; // target speed (meters per second)
+	int angle; // angle of movement
+}S; 
+struct  S_DATA *S_ptr; // покажчик для 
+struct T_DATA 
+{
+	int temperature; // T(celcium)
+	int side_wind; // wind speed (meters per second)
+	int angle_wind; // angle of wind blowing (degrees)
+
+}T;
+struct  T_DATA *T_ptr;
+
+char*naming()// dynamic memory allocation of shooter and file's names
+{
+	char* n_ptr;
+	int i=0;
+	char symbol;
+	printf("enter your name and callsign via '_':");
+	do
+	{
+		n_ptr = (char*)malloc(1 * sizeof(char));
+		n_ptr[i] = scanf("%c", &symbol);
+	} 
+	while (_getch()!=27);
+
+	return n_ptr;
+}
+
+void collect_S_DATA (struct S_DATA *S_ptr) // collecting DATA for shooting
+{
+	printf("set distance");
+	scanf("%d",&S_ptr->distance);
+	printf("set object heith");
+	scanf("%g", &S_ptr->heith);
+	printf("set thousands");
+	scanf("%d", &S_ptr->thousands);
+	printf("set target speed meters per second");
+	scanf("%d", &S_ptr->targ_speed);
+	printf("set angle of movement");
+	scanf("%d", &S_ptr->angle);
+}
+void collect_T_DATA(struct T_DATA *T_ptr) // collecting DATA of weather
+{
+	printf("set temperature");
+	scanf("%d", &T_ptr->temperature);
+	printf("set wind speed");
+	scanf("%d", &T_ptr->side_wind);
+	printf("set wind angle");
+	scanf("%d", &T_ptr->angle_wind);
+}
+float derevation(struct S_DATA *S_ptr )
+{
+	float side;
+	if (S_ptr->distance >= 800)
+	{
+		printf("derevation overflow!\nset aiming point");
+		side = half;
+		printf("side to left in %g figures", side);
+	}
+	if (S_ptr->distance >= thousand)
+	{
+		printf("derevation overflow!\nset aiming point");
+		side = 1;
+		printf("side to left in %g figures", side);
+	}
+
+	return side;
+}
+void report(char *n_ptr, struct S_DATA *S_ptr, struct T_DATA *T_ptr)
+{//createing reporting file named as shooter is
+	FILE *file;
+	fopen_s(&file, n_ptr, "w");
+	if ((fopen_s(&file, n_ptr, "w")) == NULL)
+	{
+		printf("ERROR file opening");
+	}
+	else
+	{
+		fprintf(file, "ENTERED CORRECTIONS:");
+		fprintf(file, "\n\n");
+		fwrite(&T, sizeof(&T_ptr), 1, file);
+		fprintf(file,"\n\n");
+		fwrite(&S, sizeof(&T_ptr), 1, file);
+	}
+	fclose(file);
+	printf("reporting file was made");
+}
+float DUJ(struct S_DATA *S_ptr, struct T_DATA *T_ptr) // thousand's formula
+{
+	float parametr;
+	printf("1-distance;2-target heith;3-thousands");
+	scanf("%g",&parametr);
+	if (parametr == 1) 
+	{ 
+		parametr = (((S_ptr->heith * thousand) / S_ptr->thousands)); 
+		printf("needed parametr - %g\nAIM is - %g",parametr,(parametr/hundred));
+	}
+	if (parametr == 2) 
+	{ 
+		parametr = ((S_ptr->distance * S_ptr->thousands) / thousand);
+		printf("needed parametr - %g", parametr);
+	}
+	if (parametr == 3) 
+	{
+		parametr = ((S_ptr->heith * thousand) / S_ptr->distance);
+		printf("needed parametr - %g", parametr);
+	}
+	return parametr;
+}
+float T_move(struct S_DATA *S_ptr, struct T_DATA *T_ptr) //movement correction of AIMing point in figures
+{
+	float figures;
+	printf("side AIMING POINT forward target movement");
+	if (S_ptr->distance < 500)
+	{
+		figures = (S_ptr->distance / hundred) - half;
+	}
+	else
+	{
+		figures = S_ptr->distance / hundred;
+	}
+	printf("for %f figures", figures);
+	return figures;
+}
+int S_wind(struct S_DATA *S_ptr, struct T_DATA *T_ptr) //side wind correction of AIMing point in figures
+{
+	int figures;
+	printf("side AIMING POINT up the wind");
+	if (T_ptr->side_wind == 2)	figures =  (S_ptr->distance / hundred) - twoo;
+	if (T_ptr->side_wind == 4)  figures = ((S_ptr->distance / hundred) - twoo) / twoo;
+	if (T_ptr->side_wind == 8)	figures = ((S_ptr->distance / hundred) - twoo) / four;
+	printf("in %d figures",figures);
+	return figures;
+}
+void main()
+{
+	char* name;
+	int choise = 0;
+	float sa;
+	name = naming(); // dynamic naming
+	collect_S_DATA(S_ptr); // 1-st structure 
+	collect_T_DATA(T_ptr); // 2-nd structure
+	report(name,S_ptr,T_ptr); // creating file
+	free(name); // free name memory
+	derevation(S_ptr); // report shooter about derevation
+	do // make calculating of corrections
+	{
+		printf("chose needed items: 1 - formula thousands.\n2 - PSO-grid correction.");
+		scanf("%d",&choise);
+		switch (choise)
+		{
+		case 1:
+		DUJ(S_ptr,T_ptr);
+			break;
+		case 2:
+			sa = T_move(S_ptr, T_ptr);
+			S_wind(S_ptr, T_ptr);
+			break;
+		}
+	} while (_getch()!=27);
+}
